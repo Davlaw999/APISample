@@ -1,0 +1,8 @@
+c:\users\david\documents\visual studio 2013\Projects\HomeAwayWebService\HomeAwayWebService\bin\Debug\HomeAwayWebService.exe.config
+c:\users\david\documents\visual studio 2013\Projects\HomeAwayWebService\HomeAwayWebService\bin\Debug\HomeAwayWebService.exe
+c:\users\david\documents\visual studio 2013\Projects\HomeAwayWebService\HomeAwayWebService\bin\Debug\HomeAwayWebService.pdb
+c:\users\david\documents\visual studio 2013\Projects\HomeAwayWebService\HomeAwayWebService\obj\Debug\HomeAwayWebService.exe
+c:\users\david\documents\visual studio 2013\Projects\HomeAwayWebService\HomeAwayWebService\obj\Debug\HomeAwayWebService.pdb
+c:\users\david\documents\visual studio 2013\Projects\HomeAwayWebService\HomeAwayWebService\bin\Debug\Newtonsoft.Json.dll
+c:\users\david\documents\visual studio 2013\Projects\HomeAwayWebService\HomeAwayWebService\bin\Debug\Newtonsoft.Json.xml
+c:\users\david\documents\visual studio 2013\Projects\HomeAwayWebService\HomeAwayWebService\obj\Debug\HomeAwayWebService.csprojResolveAssemblyReference.cache
