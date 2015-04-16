@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using OpenQA.Selenium;
 using OpenQA.Selenium.IE;
 using OpenQA.Selenium.Firefox;
@@ -13,6 +11,120 @@ using OpenQA.Selenium.Support.UI;
 class HomeAway
 {
 
+    public static class ProductPageClass {
+
+        public static IWebElement AddtoCart(IWebDriver driver)
+        {
+            //iPhone4s product page - Purchase button
+            IWebElement element = driver.FindElement(By.ClassName("wpsc_buy_button"));
+            return element;      
+        }
+       
+        public static IWebElement CheckOutButton(IWebDriver driver)
+        {
+            //iPhone4s product page - Checkout modal dialog
+            IWebElement element = driver.FindElement(By.ClassName("go_to_checkout"));
+            return element;
+
+        }  
+    }
+
+    public static class CheckoutPageClass
+    {
+
+        public static IWebElement ContinueButton(IWebDriver driver)
+        {
+            //Checkout product page - continue button
+            IWebElement element = driver.FindElement(By.ClassName("step2"));
+            return element;
+        }
+
+        public static IWebElement CalculateButton(IWebDriver driver)
+        {
+            //find 'Calculate' button 
+            IList<IWebElement> allOptions = driver.FindElements(By.XPath("//*[@value='Calculate']"));
+            return allOptions[0]; //first entry is the calculate button
+    
+        }
+        public static IWebElement TxtbxCurrentCountry(IWebDriver driver)
+        {
+
+            IWebElement element = driver.FindElement(By.Id("current_country"));
+            return element;
+        }
+
+        public static IWebElement TxtbxEmail(IWebDriver driver)
+        {
+
+            IWebElement element = driver.FindElement(By.Id("wpsc_checkout_form_9"));
+            return element;
+        }
+
+        public static IWebElement TxtbxFirstName(IWebDriver driver)
+        {
+
+            IWebElement element = driver.FindElement(By.Id("wpsc_checkout_form_2"));
+            return element;
+        }
+
+        public static IWebElement TxtbxLastName(IWebDriver driver)
+        {
+
+            IWebElement element = driver.FindElement(By.Id("wpsc_checkout_form_3"));
+            return element;
+        }
+
+        public static IWebElement TxtbxBillingAddress(IWebDriver driver)
+        {
+
+            IWebElement element = driver.FindElement(By.Id("wpsc_checkout_form_4"));
+            return element;
+        }
+
+        public static IWebElement TxtbxCity(IWebDriver driver)
+        {
+
+            IWebElement element = driver.FindElement(By.Id("wpsc_checkout_form_5"));
+            return element;
+        }
+
+        public static IWebElement TxtbxState(IWebDriver driver)
+        {
+
+            IWebElement element = driver.FindElement(By.Id("wpsc_checkout_form_6"));
+            return element;
+        }
+
+          public static IWebElement TxtbxCountry(IWebDriver driver)
+        {
+
+            IWebElement element = driver.FindElement(By.Id("wpsc_checkout_form_7"));
+            return element;
+        }
+
+          public static IWebElement TxtbxZip(IWebDriver driver)
+          {
+
+              IWebElement element = driver.FindElement(By.Id("wpsc_checkout_form_8"));
+              return element;
+          }
+
+          public static IWebElement TxtbxPhone(IWebDriver driver)
+          {
+
+              IWebElement element = driver.FindElement(By.Id("wpsc_checkout_form_18"));
+              return element;
+          }
+
+          public static IWebElement BuyButton(IWebDriver driver)
+          {
+
+              IWebElement element = driver.FindElement(By.ClassName("wpsc_buy_button"));
+              return element;
+          }
+    }
+
+  
     static void ErrorHandler(string strError, string strActual, string strExpected)
     {
         Console.WriteLine ("Error:" + strError );
@@ -21,17 +133,11 @@ class HomeAway
 
     } //ErrorHandler
 
-    static void FillFormWithElement (string sendKeysElement, string byIdText, IWebDriver driver)
-    {
-        IWebElement select;
-        select = driver.FindElement(By.Id(byIdText));
-        select.SendKeys(sendKeysElement);
-
-    }
+ 
     static void Test1()
     {
 
-        // Create a new instance of the Firefox driver.
+        // Create a new instance of the Firefox driver. Ideally, we should make this so we can call with multiple drivers
         IWebDriver driver = new FirefoxDriver();
 
         driver.Navigate().GoToUrl("http://store.demoqa.com/products-page/product-category/iphones/apple-iphone-4s-16gb-sim-free-black/");
@@ -49,37 +155,35 @@ class HomeAway
 
         }
         //Buy phone
-        driver.FindElement(By.ClassName("wpsc_buy_button")).Click();
+        ProductPageClass.AddtoCart(driver).Click();
         // Wait for the page to load, timeout after 5 seconds
         driver.Manage().Timeouts().ImplicitlyWait(new TimeSpan(0, 0, 5));
-
         //Confirm purchase
-        driver.FindElement(By.ClassName("go_to_checkout")).Click();
+        ProductPageClass.CheckOutButton(driver).Click();     
         //Continue Checkout
-        driver.FindElement(By.ClassName("step2")).Click();
+        CheckoutPageClass.ContinueButton(driver).Click();
+        //Checkout form - fill in address, etc
+        CheckoutPageClass.TxtbxCurrentCountry(driver).SendKeys("USA");
 
-        //navigate to new page - fill in address, etc
-
-        IWebElement select = driver.FindElement(By.Id("current_country"));
-        select.SendKeys("USA");
         //find 'Calculate' button 
-        IList<IWebElement> allOptions = select.FindElements(By.XPath("//*[@value='Calculate']"));
-        allOptions[0].Click();
+        CheckoutPageClass.CalculateButton(driver).Click();
 
         //fill in address, etc.   Consider placing values like this in a readable input file (i.e. xml file), particularly with a test suite of similiar pages
-        FillFormWithElement("email@homeaway.com", "wpsc_checkout_form_9", driver);
-        FillFormWithElement("FirstNameTest", "wpsc_checkout_form_2", driver);
-        FillFormWithElement("LastNameTest", "wpsc_checkout_form_3", driver);
-        FillFormWithElement("One Billing Address Lane", "wpsc_checkout_form_4", driver);
-        FillFormWithElement("CityTest", "wpsc_checkout_form_5", driver);
-        FillFormWithElement("TX", "wpsc_checkout_form_6", driver);
-        FillFormWithElement("USA", "wpsc_checkout_form_7", driver);
-        FillFormWithElement("98052", "wpsc_checkout_form_8", driver);
-        FillFormWithElement("425 123 4567", "wpsc_checkout_form_9", driver);
+        //FillFormWithElement("email@homeaway.com", "wpsc_checkout_form_9", driver);
+        CheckoutPageClass.TxtbxEmail(driver).SendKeys("email@homeaway.com");
+        CheckoutPageClass.TxtbxFirstName(driver).SendKeys("First NameTest");
+        CheckoutPageClass.TxtbxLastName(driver).SendKeys("Lastnametest");
+        CheckoutPageClass.TxtbxBillingAddress(driver).SendKeys("One Billing Address Lane");
+        CheckoutPageClass.TxtbxCity(driver).SendKeys("Citytest");
+        CheckoutPageClass.TxtbxState(driver).SendKeys("TX");
+        CheckoutPageClass.TxtbxCountry(driver).SendKeys("USA");
+        CheckoutPageClass.TxtbxZip(driver).SendKeys("98052");
+        CheckoutPageClass.TxtbxPhone(driver).SendKeys("123 456 7890");
+
+        
         //Confirm purchase
-        driver.FindElement(By.ClassName("wpsc_buy_button")).Click();
-
-
+        CheckoutPageClass.BuyButton(driver).Click();
+        
          //Close the browser 
         driver.Quit();
 

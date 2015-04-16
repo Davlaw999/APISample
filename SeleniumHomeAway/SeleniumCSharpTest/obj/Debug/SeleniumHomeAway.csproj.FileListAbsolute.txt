@@ -16,3 +16,6 @@ C:\Users\David\Documents\Visual Studio 2013\Projects\SeleniumHomeAway\SeleniumCS
 C:\Users\David\Documents\Visual Studio 2013\Projects\SeleniumHomeAway\SeleniumCSharpTest\obj\Debug\SeleniumHomeAway.exe
 C:\Users\David\Documents\Visual Studio 2013\Projects\SeleniumHomeAway\SeleniumCSharpTest\obj\Debug\SeleniumHomeAway.pdb
 C:\Users\David\Documents\Visual Studio 2013\Projects\SeleniumHomeAway\SeleniumCSharpTest\obj\Debug\SeleniumHomeAway.csprojResolveAssemblyReference.cache
+C:\github\Homeaway\SeleniumHomeAway\SeleniumCSharpTest\bin\Debug\SeleniumHomeAway.exe.config
+C:\github\Homeaway\SeleniumHomeAway\SeleniumCSharpTest\obj\Debug\SeleniumHomeAway.exe
+C:\github\Homeaway\SeleniumHomeAway\SeleniumCSharpTest\obj\Debug\SeleniumHomeAway.pdb
