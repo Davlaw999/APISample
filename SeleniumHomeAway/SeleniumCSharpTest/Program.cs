@@ -10,7 +10,7 @@ using OpenQA.Selenium.Support.UI;
 
 class HomeAway
 {
-
+    //classes to represent the Product page info elements
     public static class ProductPageClass {
 
         public static IWebElement AddtoCart(IWebDriver driver)
@@ -29,6 +29,8 @@ class HomeAway
         }  
     }
 
+
+    //classes to represent the Checkout page elements
     public static class CheckoutPageClass
     {
 
@@ -37,6 +39,13 @@ class HomeAway
             //Checkout product page - continue button
             IWebElement element = driver.FindElement(By.ClassName("step2"));
             return element;
+        }
+
+        public static IWebElement RemoveButton(IWebDriver driver)
+        {
+            //Checkout product page - remove button
+            IList<IWebElement> allOptions = driver.FindElements(By.XPath("//*[@value='Remove']"));
+            return allOptions[0]; //first entry is the calculate button
         }
 
         public static IWebElement CalculateButton(IWebDriver driver)
@@ -122,9 +131,16 @@ class HomeAway
               IWebElement element = driver.FindElement(By.ClassName("wpsc_buy_button"));
               return element;
           }
+
+          public static IWebElement CartMessage(IWebDriver driver)
+          {
+
+              IWebElement element = driver.FindElement(By.ClassName("entry-content"));
+              return element;
+          }
     }
 
-  
+  //helper to emulate writing out Error messages for a test case - replace with proper logging
     static void ErrorHandler(string strError, string strActual, string strExpected)
     {
         Console.WriteLine ("Error:" + strError );
@@ -134,6 +150,7 @@ class HomeAway
     } //ErrorHandler
 
  
+    //Test case - walks though purchase of iPhone
     static void Test1()
     {
 
@@ -188,10 +205,34 @@ class HomeAway
         driver.Quit();
 
     }
+
+
+    //Test case: Verifies add and removing item from cart will yield empty message
+    static void Test2()
+    {
+        IWebDriver driver = new FirefoxDriver();
+        driver.Navigate().GoToUrl("http://store.demoqa.com/products-page/product-category/iphones/apple-iphone-4s-16gb-sim-free-black/");
+        // Wait for the page to load, timeout after 5 seconds
+        WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(5));      
+        //Buy phone
+        ProductPageClass.AddtoCart(driver).Click();
+        // Wait for the page to load, timeout after 5 seconds
+        driver.Manage().Timeouts().ImplicitlyWait(new TimeSpan(0, 0, 5));
+        //Confirm purchase
+        ProductPageClass.CheckOutButton(driver).Click();
+        CheckoutPageClass.RemoveButton(driver).Click();
+        if (CheckoutPageClass.CartMessage(driver).Displayed.ToString().Contains("oops"))
+        {
+            ErrorHandler("Error - Cart not empty", "", "");
+        }
+
+
+    }
     
 
     static void Main(string[] args)
     {
-        Test1();
+        Test1();  //walk through and purchase an Apple iPhone 4S 16GB SIM-Free
+        Test2();  //Verify you can remove item from cart and get an error message
     }
 }
