@@ -210,6 +210,7 @@ class HomeAway
     //Test case: Verifies add and removing item from cart will yield empty message
     static void Test2()
     {
+        string strExpected = "Oops, there is nothing in your cart.";
         IWebDriver driver = new FirefoxDriver();
         driver.Navigate().GoToUrl("http://store.demoqa.com/products-page/product-category/iphones/apple-iphone-4s-16gb-sim-free-black/");
         // Wait for the page to load, timeout after 5 seconds
@@ -221,9 +222,13 @@ class HomeAway
         //Confirm purchase
         ProductPageClass.CheckOutButton(driver).Click();
         CheckoutPageClass.RemoveButton(driver).Click();
-        if (CheckoutPageClass.CartMessage(driver).Displayed.ToString().Contains("oops"))
+        if ( CheckoutPageClass.CartMessage(driver).Text.Contains(strExpected) )
         {
-            ErrorHandler("Error - Cart not empty", "", "");
+            Console.Write("Test Passed");
+        }
+        else
+        {
+             ErrorHandler("Error - Cart not empty",CheckoutPageClass.CartMessage(driver).Text,strExpected);
         }
 
 

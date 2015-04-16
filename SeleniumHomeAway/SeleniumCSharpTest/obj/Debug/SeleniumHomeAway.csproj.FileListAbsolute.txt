@@ -33,4 +33,3 @@ C:\github\Homeaway\SeleniumHomeAway\SeleniumCSharpTest\bin\Debug\WebDriver.pdb
 C:\github\Homeaway\SeleniumHomeAway\SeleniumCSharpTest\bin\Debug\WebDriver.xml
 C:\github\Homeaway\SeleniumHomeAway\SeleniumCSharpTest\bin\Debug\WebDriver.Support.pdb
 C:\github\Homeaway\SeleniumHomeAway\SeleniumCSharpTest\bin\Debug\WebDriver.Support.xml
-C:\github\Homeaway\SeleniumHomeAway\SeleniumCSharpTest\obj\Debug\SeleniumHomeAway.csprojResolveAssemblyReference.cache
